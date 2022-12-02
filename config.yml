@@ -1,0 +1,8 @@
+name: 離島送料プラグイン
+code: RemoteIslandsDeliveryFee
+version: 1.0.0
+event: RemoteIslandsDeliveryFeeEvent
+service:
+    - RemoteIslandsDeliveryFeeServiceProvider
+orm.path:
+    - /Resource/doctrine

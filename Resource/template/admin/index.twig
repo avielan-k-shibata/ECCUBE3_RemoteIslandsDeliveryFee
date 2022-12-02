@@ -1,0 +1,74 @@
+
+{% extends 'default_frame.twig' %}
+
+{% set body_class = 'remoteislandsdeliveryfee_page' %}
+{% block title %}設定{% endblock %}
+{% block sub_title %}離島料金設定{% endblock %}
+{% block main %}
+
+    <div id="news_wrap" class="row">
+        <div id="news_list_box" class="col-md-12">
+            <div id="news_list_box__body" class="box">
+                <div id="news_list_box__header" class="box-header">
+                    <h3 class="box-title">離島料金設定</h3>
+                </div><!-- /.box-header -->
+                <div id="news_list_box__body_inner" class="box-body">
+                    <form name="form1" id="form1" method="post" action="">
+                        <div id="news_list_box__list_box" class="table_list">
+                            <div id="news_list_box__list" class="table-responsive with-border">
+                                <table class="table table-striped">
+                                    <thead>
+                                       <tr id="news_list_box__list_header">
+                                            <th id="news_list_box__header_rank">ID</th>
+                                            <th id="news_list_box__header_date">都道府県</th>
+                                            <th id="news_list_box__header_title">市町村</th>
+                                            <th id="news_list_box__header_title">配送プラス料金</th>
+                                            <th id="news_list_box__header_menu_box">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for RemoteIsland in RemoteIslands %}
+                                        <tr id="news_list_box__item--{{ RemoteIsland.id }}">
+                                            <td id="news_list_box__rank--{{ RemoteIsland.id }}">{{ RemoteIsland.id }}</td>
+                                            <td id="news_list_box__date--{{ RemoteIsland.id }}">{{ RemoteIsland.Pref.name }}</td>
+                                            <td id="news_list_box__title--{{ RemoteIsland.id }}">{{ RemoteIsland.address}}</td>
+                                            <td id="news_list_box__title--{{ RemoteIsland.id }}">{{ RemoteIsland.value| price}}</td>
+                                            <td id="news_list_box__menu_box--{{ RemoteIsland.id }}" class="icon_edit">
+                                                <div id="news_list_box__menu_box_toggle--{{ RemoteIsland.id }}" class="dropdown">
+                                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><svg class="cb cb-ellipsis-h"> <use xlink:href="#cb-ellipsis-h" /></svg></a>
+                                                    <ul id="news_list_box__menu--{{ RemoteIsland.id }}" class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="{{ url('plugin_RemoteIslandsDeliveryFee_edit', {id: RemoteIsland.id}) }}" >編集</a></li>
+                                                        <li><a href="{{ url('plugin_RemoteIslandsDeliveryFee_delete', {id: RemoteIsland.id}) }}" {{ csrf_token_for_anchor() }} data-method="delete" data-message="削除してもよろしいですか？">削除</a></li>
+                                                        {% if loop.first == false %}
+                                                            <li>
+                                                                <a href="{{ url('admin_content_news_up', {id: RemoteIsland.id}) }}" {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false">上へ</a>
+                                                            </li>
+                                                        {% endif %}
+                                                        {% if loop.last == false %}
+                                                            <li>
+                                                                <a href="{{ url('admin_content_news_down', {id: RemoteIsland.id}) }}" {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false">下へ</a>
+                                                            </li>
+                                                        {% endif %}
+
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.box -->
+            <div id="news_list_box__footer" class="row">
+                <div id="news_list_box__insert_button" class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 text-center btn_area">
+                    <a href="{{ url('plugin_RemoteIslandsDeliveryFee_new') }}" class="btn btn-primary btn-block btn-lg">新規登録</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

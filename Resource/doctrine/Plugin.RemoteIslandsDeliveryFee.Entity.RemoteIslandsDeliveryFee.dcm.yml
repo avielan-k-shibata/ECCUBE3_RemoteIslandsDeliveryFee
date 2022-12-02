@@ -1,0 +1,26 @@
+Plugin\RemoteIslandsDeliveryFee\Entity\RemoteIslandsDeliveryFee:
+  type: entity
+  table: plg_remoteislandsdeliveryfee
+  repositoryClass: Plugin\RemoteIslandsDeliveryFee\Repository\RemoteIslandsDeliveryFeeRepository
+  id:
+    id:
+      type: smallint
+      nullable: false
+      unsigned: false
+      id: true
+  fields:
+    address:
+      type: text
+      nullable: true
+    value:
+      type: integer
+      nullable: true
+
+  manyToOne:
+    Pref:
+      targetEntity: Eccube\Entity\Master\Pref
+      joinColumn:
+        name: pref_id
+        referencedColumnName: id
+
+  lifecycleCallbacks: {}

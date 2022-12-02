@@ -1,0 +1,6 @@
+admin.plugin.RemoteIslandsDeliveryFee.notfound: 離島追加料金が存在しません。
+
+admin.plugin.RemoteIslandsDeliveryFee.regist.success: 離島追加料金を登録しました。
+admin.plugin.RemoteIslandsDeliveryFee.delete.success: 離島追加料金を削除しました。
+admin.plugin.RemoteIslandsDeliveryFee.enable.success: 離島追加料金の状態を変更しました。
+admin.plugin.RemoteIslandsDeliveryFee.delete.error: 離島追加料金の削除に失敗しました。
