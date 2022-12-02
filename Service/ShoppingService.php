@@ -44,7 +44,6 @@ class ShoppingService extends \Eccube\Service\ShoppingService
                 }
             }
         }
-        dump($deliveryFeeTotal);
         return $deliveryFeeTotal;
 
     }
@@ -59,11 +58,12 @@ class ShoppingService extends \Eccube\Service\ShoppingService
         $PrefId = $Shipping->getPref()->getId(); // 県のid取得
         $RemoteIslands = $app['plugin.remote_islands_delivery_fee.repository.remote_islands_delivery_fee']->getPref($PrefId);
         $deliveryFreeAmount = $this->BaseInfo->getDeliveryFreeAmount();
-        dump($deliveryFreeAmount, $Order->getSubTotal());
         if (!is_null($deliveryFreeAmount)) {
             // 合計金額が設定金額以上であれば送料無料
             if ($Order->getSubTotal() >= $deliveryFreeAmount) {
                 $Order->setDeliveryFeeTotal(0);
+                // 離島用料金発生
+
                 if($RemoteIslands){
                     foreach($RemoteIslands as $RemoteIsland){
                         $RemoteIslandAddr = $RemoteIsland->getAddress();
@@ -74,9 +74,12 @@ class ShoppingService extends \Eccube\Service\ShoppingService
                         }
                     }
                 }
+                if($PrefId === 47){
+                    $okinawa_fee = $Order->getDeliveryFeeTotal();
+                    $Order->setDeliveryFeeTotal(2000 + $okinawa_fee);
+                }
+                
                 $shippings = $Order->getShippings();
-                dump(444);
-
                 foreach ($shippings as $Shipping) {
                     $Shipping->setShippingDeliveryFee(0);
                 }
