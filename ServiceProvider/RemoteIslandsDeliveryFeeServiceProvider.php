@@ -70,7 +70,7 @@ class RemoteIslandsDeliveryFeeServiceProvider implements ServiceProviderInterfac
             return $app['orm.em']->getRepository('Plugin\RemoteIslandsDeliveryFee\Entity\RemoteIslandsDeliveryFee');
         });
         // Service
-        $app['eccube.service.shopping'] = $app->share(function () use ($app) {
+        $app['eccube.remote_islands_delivery_fee.service.shopping'] = $app->share(function () use ($app) {
             return new \Plugin\RemoteIslandsDeliveryFee\Service\ShoppingService($app, $app['eccube.service.cart'], $app['eccube.service.order']);
         });
 

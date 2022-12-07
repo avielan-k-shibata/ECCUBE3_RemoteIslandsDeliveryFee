@@ -78,12 +78,14 @@ class ShoppingService extends \Eccube\Service\ShoppingService
                     $okinawa_fee = $Order->getDeliveryFeeTotal();
                     $Order->setDeliveryFeeTotal(2000 + $okinawa_fee);
                 }
-                
+                $okinawa_fee = $Order->getDeliveryFeeTotal();
+
                 $shippings = $Order->getShippings();
                 foreach ($shippings as $Shipping) {
                     $Shipping->setShippingDeliveryFee(0);
                 }
             }
         }
+        $okinawa_fee = $Order->getDeliveryFeeTotal();
     }
 }
