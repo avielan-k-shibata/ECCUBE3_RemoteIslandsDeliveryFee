@@ -66,30 +66,30 @@ class RemoteIslandsDeliveryFeeEvent
     //     }
 
     // }
-    // public function onFrontShoppingDeliveryInitialize(EventArgs $event){
-    //     $app = $this->app;
-    //     $Order = $event->getArgument('Order');
-    //     $Shippings = $Order->getShippings(); // 送り先取得
-    //     $Shipping = $Shippings[0];
-    //     $Address = $Shipping->getAddr01(); // 送り先住所
-    //     $PrefId = $Shipping->getPref()->getId(); // 県のid取得
-    //     $d_fee = $Order->getDeliveryFeeTotal();
+    public function onFrontShoppingDeliveryInitialize(EventArgs $event){
+        $app = $this->app;
+        $Order = $event->getArgument('Order');
+        $Shippings = $Order->getShippings(); // 送り先取得
+        $Shipping = $Shippings[0];
+        $Address = $Shipping->getAddr01(); // 送り先住所
+        $PrefId = $Shipping->getPref()->getId(); // 県のid取得
+        $d_fee = $Order->getDeliveryFeeTotal();
 
-    //     $RemoteIslands = $app['plugin.remote_islands_delivery_fee.repository.remote_islands_delivery_fee']->getPref($PrefId);
+        $RemoteIslands = $app['plugin.remote_islands_delivery_fee.repository.remote_islands_delivery_fee']->getPref($PrefId);
 
-    //     if($RemoteIslands){
-    //         foreach($RemoteIslands as $RemoteIsland){
-    //             $RemoteIslandAddr = $RemoteIsland->getAddress();
-    //             $Address2 = strpos($Address, $RemoteIslandAddr);
-    //             if($Address2 !== false){
-    //                 $shipping= $RemoteIsland->getValue();
-    //                 $Order->setDeliveryFeeTotal($shipping + $d_fee);
-    //                 $this->app['orm.em']->persist($Order);
-    //                 $this->app['orm.em']->flush($Order);
-    //             }
-    //         }
-    //     }
-    // }
+        if($RemoteIslands){
+            foreach($RemoteIslands as $RemoteIsland){
+                $RemoteIslandAddr = $RemoteIsland->getAddress();
+                $Address2 = strpos($Address, $RemoteIslandAddr);
+                if($Address2 !== false){
+                    $shipping= $RemoteIsland->getValue();
+                    $Order->setDeliveryFeeTotal($shipping + $d_fee);
+                    $this->app['orm.em']->persist($Order);
+                    $this->app['orm.em']->flush($Order);
+                }
+            }
+        }
+    }
 
     public function onRenderRemoteIslands(TemplateEvent $event)
     {

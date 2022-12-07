@@ -76,7 +76,7 @@ class ShoppingService extends \Eccube\Service\ShoppingService
                 }
                 if($PrefId === 47){
                     $okinawa_fee = $Order->getDeliveryFeeTotal();
-                    $Order->setDeliveryFeeTotal(2000 + $okinawa_fee);
+                    $Order->setDeliveryFeeTotal(2200 + $okinawa_fee);
                 }
                 $okinawa_fee = $Order->getDeliveryFeeTotal();
 

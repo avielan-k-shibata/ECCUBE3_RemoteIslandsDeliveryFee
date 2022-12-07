@@ -1,6 +1,6 @@
 # front.shopping.index.initialize:
 #     - [onFrontShoppingIndexInitialize, NORMAL]
-# front.shopping.confirm.processing:
-#     - [onFrontShoppingDeliveryInitialize, NORMAL]
+front.shopping.confirm.processing:
+    - [onFrontShoppingDeliveryInitialize, NORMAL]
 Shopping/index.twig:
     - [onRenderRemoteIslands, NORMAL]
